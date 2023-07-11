@@ -23,10 +23,10 @@ describe('Order', () => {
 
   it('returns the order total value', () => {
     const items: OrderItem[] = [
-      new OrderItem(randomUUID(), 'Produto 01', 2.0),
-      new OrderItem(randomUUID(), 'Produto 02', 5.0),
+      new OrderItem(randomUUID(), '82b70e189401', 'Produto 01', 2, 2),
+      new OrderItem(randomUUID(), '82b70e189401', 'Produto 02', 5, 5),
     ];
     const order = new Order(randomUUID(), randomUUID(), items);
-    expect(order.total()).toBe(7);
+    expect(order.total()).toBe(29);
   });
 });
