@@ -11,8 +11,9 @@ const config: Config = {
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   transform: {
-    '^.+\\.(t|j)sx?$': '@swc/jest',
+    '^.+\\.ts': 'ts-jest',
   },
+  testPathIgnorePatterns: ['dist'],
 };
 
 export default config;
