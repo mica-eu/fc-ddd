@@ -1,13 +1,19 @@
+import { UUID } from 'crypto';
+
 export class Product {
-  #id: string;
+  #id: UUID;
   #name: string;
   #price: number;
 
-  constructor(id: string, name: string, price: number) {
+  constructor(id: UUID, name: string, price: number) {
     this.#id = id;
     this.#name = name;
     this.#price = price;
     this.validate();
+  }
+
+  get id(): UUID {
+    return this.#id;
   }
 
   get name(): string {
@@ -29,7 +35,7 @@ export class Product {
   }
 
   private validate(): void {
-    if (!this.#id.trim()) {
+    if (!this.#id) {
       throw new Error('Missing required param <id>');
     }
     if (!this.#name.trim()) {

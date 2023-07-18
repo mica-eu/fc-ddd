@@ -3,7 +3,8 @@ import { Product } from './product';
 
 describe('Product', () => {
   it('throws error when id is empty', () => {
-    expect(() => new Product('', 'Product Name', 2.3)).toThrowError(
+    // @ts-expect-error ...
+    expect(() => new Product(null, 'Product Name', 2.3)).toThrowError(
       'Missing required param <id>'
     );
   });
