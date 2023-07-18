@@ -1,7 +1,9 @@
 export class Address {
   constructor(
+    readonly zipcode: string,
+    readonly city: string,
     readonly street: string,
-    readonly number: number,
+    readonly number: string,
     readonly complement: string
   ) {}
 }

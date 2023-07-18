@@ -1,13 +1,14 @@
+import { UUID } from 'crypto';
 import type { Address } from './address';
 
 export class Customer {
   #active: boolean;
-  #id: string;
+  #id: UUID;
   #name: string;
-  #address?: Address;
+  #address: Address;
   #rewardPoints = 0;
 
-  constructor(id: string, name: string, address?: Address) {
+  constructor(id: UUID, name: string, address: Address) {
     this.#active = false;
     this.#id = id;
     this.#name = name;
@@ -15,12 +16,16 @@ export class Customer {
     this.validate();
   }
 
-  get id(): string {
+  get id(): UUID {
     return this.#id;
   }
 
   get name(): string {
     return this.#name;
+  }
+
+  get address(): Address {
+    return this.#address;
   }
 
   get rewardPoints(): number {
@@ -32,10 +37,10 @@ export class Customer {
   }
 
   validate() {
-    if (!this.#id.trim()) {
+    if (!this.#id) {
       throw new Error('Missing required prop <id>');
     }
-    if (!this.#name.trim()) {
+    if (!this.#name) {
       throw new Error('Missing required prop <name>');
     }
   }

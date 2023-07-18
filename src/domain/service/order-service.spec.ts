@@ -3,10 +3,18 @@ import { OrderItem } from '../entity/order-item';
 import { Order } from '../entity/order';
 import { OrderService } from './order-service';
 import { Customer } from '../entity/customer';
+import { Address } from '../entity/address';
 
 describe('OrderService', () => {
   it('places a order', () => {
-    const customer = new Customer(randomUUID(), 'John Doe');
+    const address = new Address(
+      '5855566',
+      'City Name',
+      'Street Name',
+      '100',
+      'Apto 101'
+    );
+    const customer = new Customer(randomUUID(), 'John Doe', address);
     const orderItem = new OrderItem(
       randomUUID(),
       randomUUID(),
