@@ -29,8 +29,8 @@ describe('OrderService', () => {
 
   it('returns the total amount of all orders', () => {
     const items: OrderItem[] = [
-      new OrderItem(randomUUID(), '82b70e189401', 'Produto 01', 2, 2),
-      new OrderItem(randomUUID(), '7b46a11c1f5e', 'Produto 02', 5, 5),
+      new OrderItem(randomUUID(), randomUUID(), 'Produto 01', 2, 2),
+      new OrderItem(randomUUID(), randomUUID(), 'Produto 02', 5, 5),
     ];
     expect(
       OrderService.total([

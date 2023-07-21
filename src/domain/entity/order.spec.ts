@@ -4,13 +4,15 @@ import { OrderItem } from './order-item';
 
 describe('Order', () => {
   it('throws error when id is empty', () => {
-    expect(() => new Order('', randomUUID(), [])).toThrowError(
+    // @ts-expect-error ...
+    expect(() => new Order(null, randomUUID(), [])).toThrowError(
       'Missing required param <id>'
     );
   });
 
   it('throws error when customerId is empty', () => {
-    expect(() => new Order(randomUUID(), '', [])).toThrowError(
+    // @ts-expect-error ...
+    expect(() => new Order(randomUUID(), null, [])).toThrowError(
       'Missing required param <customerId>'
     );
   });
@@ -23,8 +25,8 @@ describe('Order', () => {
 
   it('returns the order total value', () => {
     const items: OrderItem[] = [
-      new OrderItem(randomUUID(), '82b70e189401', 'Produto 01', 2, 2),
-      new OrderItem(randomUUID(), '82b70e189401', 'Produto 02', 5, 5),
+      new OrderItem(randomUUID(), randomUUID(), 'Produto 01', 2, 2),
+      new OrderItem(randomUUID(), randomUUID(), 'Produto 02', 5, 5),
     ];
     const order = new Order(randomUUID(), randomUUID(), items);
     expect(order.total()).toBe(29);
