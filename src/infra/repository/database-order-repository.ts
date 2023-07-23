@@ -33,9 +33,9 @@ export class DatabaseOrderRepository implements OrderRepository {
         rejectOnEmpty: true,
       });
     } catch {
-      throw Error('Order not found!');
+      throw new Error('Order not found!');
     }
-    await orderModel?.update(
+    await orderModel.update(
       {
         customerId: order.customerId,
         total: order.total(),

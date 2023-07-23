@@ -135,6 +135,13 @@ describe('OrderRepository', () => {
     });
   });
 
+  it('throws error order do not exists when try to update', async () => {
+    const { orderRepository, order } = await makeSUT();
+    expect(() => orderRepository.update(order)).rejects.toThrowError(
+      'Order not found!'
+    );
+  });
+
   it('finds a order', async () => {
     const { orderRepository, order } = await makeSUT();
     await orderRepository.create(order);
