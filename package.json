@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "test:watch": "npm test -- --no-coverage --watch",
     "lint": "eslint src"
   },
