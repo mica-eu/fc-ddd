@@ -1,18 +1,18 @@
 import { randomUUID } from 'crypto';
 import { Sequelize } from 'sequelize-typescript';
-import { OrderModel } from '../db/sequelize/model/order-model';
-import { CustomerModel } from '../db/sequelize/model/customer-model';
-import { OrderItemModel } from '../db/sequelize/model/order-item-model';
-import { ProductModel } from '../db/sequelize/model/product-model';
-import { DatabaseCustomerRepository } from './database-customer-repository';
-import { DatabaseProductRepository } from './database-product-repository';
-import { Address } from '../../domain/customer/value-object/address';
-import { OrderItem } from '../../domain/checkout/entity/order-item';
-import { OrderService } from '../../domain/checkout/service/order-service';
-import { Order } from '../../domain/checkout/entity/order';
+import { CustomerModel } from '../../../customer/repository/sequelize/customer-model';
+import { OrderItemModel } from './order-item-model';
+import { ProductModel } from '../../../product/repository/sequelize/product-model';
+import { Address } from '../../../../domain/customer/value-object/address';
+import { OrderItem } from '../../../../domain/checkout/entity/order-item';
+import { OrderService } from '../../../../domain/checkout/service/order-service';
+import { Order } from '../../../../domain/checkout/entity/order';
 import { DatabaseOrderRepository } from './database-order-repository';
-import { Customer } from '../../domain/customer/entity/customer';
-import { Product } from '../../domain/product/entity/product';
+import { Customer } from '../../../../domain/customer/entity/customer';
+import { Product } from '../../../../domain/product/entity/product';
+import { DatabaseProductRepository } from '../../../product/repository/sequelize/database-product-repository';
+import { DatabaseCustomerRepository } from '../../../customer/repository/sequelize/database-customer-repository';
+import { OrderModel } from './order-model';
 
 interface SUTOutput {
   productRepository: DatabaseProductRepository;

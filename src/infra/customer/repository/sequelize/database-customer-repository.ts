@@ -1,8 +1,8 @@
 import { UUID } from 'crypto';
-import { CustomerRepository } from '../../domain/customer/repository/customer-repository';
-import { CustomerModel } from '../db/sequelize/model/customer-model';
-import { Address } from '../../domain/customer/value-object/address';
-import { Customer } from '../../domain/customer/entity/customer';
+import { CustomerRepository } from '../../../../domain/customer/repository/customer-repository';
+import { Customer } from '../../../../domain/customer/entity/customer';
+import { CustomerModel } from './customer-model';
+import { Address } from '../../../../domain/customer/value-object/address';
 
 export class DatabaseCustomerRepository implements CustomerRepository {
   async create(customer: Customer): Promise<void> {

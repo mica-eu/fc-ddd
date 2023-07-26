@@ -1,9 +1,9 @@
 import { randomUUID } from 'crypto';
 import { Sequelize } from 'sequelize-typescript';
-import { CustomerModel } from '../db/sequelize/model/customer-model';
-import { Address } from '../../domain/customer/value-object/address';
+import { CustomerModel } from './customer-model';
+import { Address } from '../../../../domain/customer/value-object/address';
 import { DatabaseCustomerRepository } from './database-customer-repository';
-import { Customer } from '../../domain/customer/entity/customer';
+import { Customer } from '../../../../domain/customer/entity/customer';
 
 describe('CustomerRepository', () => {
   let sequelize: Sequelize;

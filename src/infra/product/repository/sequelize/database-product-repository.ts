@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
-import { ProductRepository } from '../../domain/product/repository/product-repository';
-import { ProductModel } from '../db/sequelize/model/product-model';
-import { Product } from '../../domain/product/entity/product';
+import { ProductRepository } from '../../../../domain/product/repository/product-repository';
+import { Product } from '../../../../domain/product/entity/product';
+import { ProductModel } from './product-model';
 
 export class DatabaseProductRepository implements ProductRepository {
   async create(product: Product): Promise<void> {

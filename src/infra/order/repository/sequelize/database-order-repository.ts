@@ -1,10 +1,11 @@
 import { UUID } from 'crypto';
-import { OrderModel } from '../db/sequelize/model/order-model';
-import { OrderItemModel } from '../db/sequelize/model/order-item-model';
-import { OrderItem } from '../../domain/checkout/entity/order-item';
-import { OrderRepository } from '../../domain/checkout/repository/order-repository';
+
 import { Op } from 'sequelize';
-import { Order } from '../../domain/checkout/entity/order';
+import { OrderRepository } from '../../../../domain/checkout/repository/order-repository';
+import { Order } from '../../../../domain/checkout/entity/order';
+import { OrderModel } from './order-model';
+import { OrderItemModel } from './order-item-model';
+import { OrderItem } from '../../../../domain/checkout/entity/order-item';
 
 export class DatabaseOrderRepository implements OrderRepository {
   async create(order: Order): Promise<void> {
