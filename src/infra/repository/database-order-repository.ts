@@ -1,10 +1,10 @@
 import { UUID } from 'crypto';
 import { OrderModel } from '../db/sequelize/model/order-model';
 import { OrderItemModel } from '../db/sequelize/model/order-item-model';
-import { OrderItem } from '../../domain/entity/order-item';
-import { OrderRepository } from '../../domain/repository/order-repository';
-import { Order } from '../../domain/entity/order';
+import { OrderItem } from '../../domain/checkout/entity/order-item';
+import { OrderRepository } from '../../domain/checkout/repository/order-repository';
 import { Op } from 'sequelize';
+import { Order } from '../../domain/checkout/entity/order';
 
 export class DatabaseOrderRepository implements OrderRepository {
   async create(order: Order): Promise<void> {
@@ -72,14 +72,7 @@ export class DatabaseOrderRepository implements OrderRepository {
       orderModel?.id as UUID,
       orderModel?.customerId as UUID,
       orderModel?.items.map(
-        (item) =>
-          new OrderItem(
-            item.id,
-            item.productId,
-            item.name,
-            item.price,
-            item.quantity
-          )
+        (item) => new OrderItem(item.id, item.productId, item.name, item.price, item.quantity)
       ) as OrderItem[]
     );
   }
@@ -94,14 +87,7 @@ export class DatabaseOrderRepository implements OrderRepository {
           order?.id as UUID,
           order?.customerId as UUID,
           order?.items.map(
-            (item) =>
-              new OrderItem(
-                item.id,
-                item.productId,
-                item.name,
-                item.price,
-                item.quantity
-              )
+            (item) => new OrderItem(item.id, item.productId, item.name, item.price, item.quantity)
           ) as OrderItem[]
         )
     );

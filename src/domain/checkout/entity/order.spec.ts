@@ -5,9 +5,7 @@ import { OrderItem } from './order-item';
 describe('Order', () => {
   it('throws error when id is empty', () => {
     // @ts-expect-error ...
-    expect(() => new Order(null, randomUUID(), [])).toThrowError(
-      'Missing required param <id>'
-    );
+    expect(() => new Order(null, randomUUID(), [])).toThrowError('Missing required param <id>');
   });
 
   it('throws error when customerId is empty', () => {

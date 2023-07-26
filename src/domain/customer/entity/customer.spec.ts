@@ -1,21 +1,13 @@
 import { randomUUID } from 'node:crypto';
-import { Address } from './address';
+import { Address } from '../value-object/address';
 import { Customer } from './customer';
 
 describe('Customer', () => {
-  const address = new Address(
-    '5855566',
-    'City Name',
-    'Street Name',
-    '100',
-    'Apto 101'
-  );
+  const address = new Address('5855566', 'City Name', 'Street Name', '100', 'Apto 101');
 
   it('throws error when id is empty', () => {
     // @ts-expect-error ...
-    expect(() => new Customer(null, 'John', address)).toThrowError(
-      'Missing required prop <id>'
-    );
+    expect(() => new Customer(null, 'John', address)).toThrowError('Missing required prop <id>');
   });
 
   it('throws error when name is empty', () => {
@@ -28,9 +20,7 @@ describe('Customer', () => {
   it('throws error when address is empty', () => {
     // @ts-expect-error ...
     const customer = new Customer(randomUUID(), 'John');
-    expect(() => customer.activate()).toThrowError(
-      'Missing required prop <address>'
-    );
+    expect(() => customer.activate()).toThrowError('Missing required prop <address>');
   });
 
   it('changes customer name', () => {

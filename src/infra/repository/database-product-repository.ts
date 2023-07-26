@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
-import { Product } from '../../domain/entity/product';
-import { ProductRepository } from '../../domain/repository/product-repository';
+import { ProductRepository } from '../../domain/product/repository/product-repository';
 import { ProductModel } from '../db/sequelize/model/product-model';
+import { Product } from '../../domain/product/entity/product';
 
 export class DatabaseProductRepository implements ProductRepository {
   async create(product: Product): Promise<void> {
@@ -33,8 +33,6 @@ export class DatabaseProductRepository implements ProductRepository {
 
   async findAll(): Promise<Product[]> {
     const foundProducts = await ProductModel.findAll();
-    return foundProducts.map(
-      (product) => new Product(product.id, product.name, product.price)
-    );
+    return foundProducts.map((product) => new Product(product.id, product.name, product.price));
   }
 }

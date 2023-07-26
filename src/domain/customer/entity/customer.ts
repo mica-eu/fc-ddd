@@ -1,5 +1,5 @@
 import { UUID } from 'crypto';
-import type { Address } from './address';
+import type { Address } from '../value-object/address';
 
 export class Customer {
   #active: boolean;

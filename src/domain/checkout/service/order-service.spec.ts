@@ -2,26 +2,14 @@ import { randomUUID } from 'crypto';
 import { OrderItem } from '../entity/order-item';
 import { Order } from '../entity/order';
 import { OrderService } from './order-service';
-import { Customer } from '../entity/customer';
-import { Address } from '../entity/address';
+import { Address } from '../../customer/value-object/address';
+import { Customer } from '../../customer/entity/customer';
 
 describe('OrderService', () => {
   it('places a order', () => {
-    const address = new Address(
-      '5855566',
-      'City Name',
-      'Street Name',
-      '100',
-      'Apto 101'
-    );
+    const address = new Address('5855566', 'City Name', 'Street Name', '100', 'Apto 101');
     const customer = new Customer(randomUUID(), 'John Doe', address);
-    const orderItem = new OrderItem(
-      randomUUID(),
-      randomUUID(),
-      'Product Name',
-      10,
-      1
-    );
+    const orderItem = new OrderItem(randomUUID(), randomUUID(), 'Product Name', 10, 1);
     const order = OrderService.placeOrder(customer, [orderItem]);
     expect(customer.rewardPoints).toBe(5);
     expect(order.total()).toBe(10);

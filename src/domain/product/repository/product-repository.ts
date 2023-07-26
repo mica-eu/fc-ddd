@@ -1,5 +1,5 @@
+import { Repository } from '../../@shared/repository/repository';
 import { Product } from '../entity/product';
-import { Repository } from './repository';
 
 export interface ProductRepository extends Repository<Product> {
   create(product: Product): Promise<void>;

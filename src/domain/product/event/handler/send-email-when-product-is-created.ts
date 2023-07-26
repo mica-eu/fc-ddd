@@ -1,4 +1,4 @@
-import { EventHandler } from '../../@shared/event-handler';
+import { EventHandler } from '../../../@shared/event/event-handler';
 import { ProductCreatedEvent } from '../product-created';
 
 export class SendEmailWhenProductIsCreate implements EventHandler<ProductCreatedEvent> {

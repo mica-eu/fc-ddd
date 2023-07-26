@@ -1,9 +1,9 @@
 import { randomUUID } from 'crypto';
 import { Sequelize } from 'sequelize-typescript';
-import { Customer } from '../../domain/entity/customer';
 import { CustomerModel } from '../db/sequelize/model/customer-model';
-import { Address } from '../../domain/entity/address';
+import { Address } from '../../domain/customer/value-object/address';
 import { DatabaseCustomerRepository } from './database-customer-repository';
+import { Customer } from '../../domain/customer/entity/customer';
 
 describe('CustomerRepository', () => {
   let sequelize: Sequelize;
@@ -25,13 +25,7 @@ describe('CustomerRepository', () => {
 
   it('creates a customer', async () => {
     const customerRepository = new DatabaseCustomerRepository();
-    const address = new Address(
-      '5855566',
-      'City Name',
-      'Street Name',
-      '100',
-      'Apto 101'
-    );
+    const address = new Address('5855566', 'City Name', 'Street Name', '100', 'Apto 101');
     const customer = new Customer(randomUUID(), 'John Doe', address);
     await customerRepository.create(customer);
     const customerModel = await CustomerModel.findOne({
@@ -52,13 +46,7 @@ describe('CustomerRepository', () => {
 
   it('updates a customer', async () => {
     const customerRepository = new DatabaseCustomerRepository();
-    const address = new Address(
-      '5855566',
-      'City Name',
-      'Street Name',
-      '100',
-      'Apto 101'
-    );
+    const address = new Address('5855566', 'City Name', 'Street Name', '100', 'Apto 101');
     const customer = new Customer(randomUUID(), 'John Doe', address);
     await customerRepository.create(customer);
     customer.changeName('Sara Connor');
@@ -82,13 +70,7 @@ describe('CustomerRepository', () => {
 
   it('finds a customer', async () => {
     const customerRepository = new DatabaseCustomerRepository();
-    const address = new Address(
-      '5855566',
-      'City Name',
-      'Street Name',
-      '100',
-      'Apto 101'
-    );
+    const address = new Address('5855566', 'City Name', 'Street Name', '100', 'Apto 101');
     const customer = new Customer(randomUUID(), 'John Doe', address);
     await customerRepository.create(customer);
     const customerModel = await CustomerModel.findOne({
@@ -110,20 +92,12 @@ describe('CustomerRepository', () => {
 
   it('throws an erro if customer not found', () => {
     const customerRepository = new DatabaseCustomerRepository();
-    expect(() => customerRepository.find(randomUUID())).rejects.toThrowError(
-      'Customer not found!'
-    );
+    expect(() => customerRepository.find(randomUUID())).rejects.toThrowError('Customer not found!');
   });
 
   it('finds many customers', async () => {
     const customerRepository = new DatabaseCustomerRepository();
-    const address = new Address(
-      '5855566',
-      'City Name',
-      'Street Name',
-      '100',
-      'Apto 101'
-    );
+    const address = new Address('5855566', 'City Name', 'Street Name', '100', 'Apto 101');
     const customers = [
       new Customer(randomUUID(), 'John Doe', address),
       new Customer(randomUUID(), 'Sara Connor', address),

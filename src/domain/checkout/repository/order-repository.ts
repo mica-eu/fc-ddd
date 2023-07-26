@@ -1,5 +1,5 @@
 import { Order } from '../entity/order';
-import { Repository } from './repository';
+import { Repository } from '../../@shared/repository/repository';
 
 export interface OrderRepository extends Repository<Order> {
   create(order: Order): Promise<void>;

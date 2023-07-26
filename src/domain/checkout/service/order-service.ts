@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
-import { Customer } from '../entity/customer';
 import { Order } from '../entity/order';
 import { OrderItem } from '../entity/order-item';
+import { Customer } from '../../customer/entity/customer';
 
 export class OrderService {
   static total(orders: Order[]): number {

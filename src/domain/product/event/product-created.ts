@@ -1,4 +1,4 @@
-import { DomainEvent } from '../@shared/event';
+import { DomainEvent } from '../../@shared/event/event';
 
 export class ProductCreatedEvent implements DomainEvent {
   readonly name = 'PRODUCT_CREATED';

@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
-import { Product } from '../entity/product';
 import { ProductService } from './product-service';
+import { Product } from '../entity/product';
 
 describe('ProductService', () => {
   it('increases price of a product list', () => {
