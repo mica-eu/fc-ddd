@@ -1,6 +1,7 @@
 import { UUID } from 'crypto';
+import { IProduct } from '../interface/product';
 
-export class Product {
+export class Product implements IProduct {
   #id: UUID;
   #name: string;
   #price: number;
