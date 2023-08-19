@@ -1,7 +1,7 @@
 import { DomainEvent } from './event';
 import { EventHandler } from './event-handler';
 
-interface DispacherEventHandlers {
+interface DispatcherEventHandlers {
   [key: string]: EventHandler[];
 }
 
@@ -13,36 +13,36 @@ export interface EventDispatcher<T extends DomainEvent = DomainEvent> {
 }
 
 export class DefaultEventDispatcher implements EventDispatcher {
-  #eventHanders: DispacherEventHandlers = {};
+  #eventHandlers: DispatcherEventHandlers = {};
 
-  get eventHandlers(): DispacherEventHandlers {
-    return this.#eventHanders;
+  get eventHandlers(): DispatcherEventHandlers {
+    return this.#eventHandlers;
   }
 
   notify(event: DomainEvent): void {
-    if (this.#eventHanders[event.name]) {
-      this.#eventHanders[event.name].forEach((handler) => {
+    if (this.#eventHandlers[event.name]) {
+      this.#eventHandlers[event.name].forEach((handler) => {
         handler.execute(event);
       });
     }
   }
 
   register(eventName: string, eventHandler: EventHandler): void {
-    if (!this.#eventHanders[eventName]) {
-      this.#eventHanders[eventName] = [];
+    if (!this.#eventHandlers[eventName]) {
+      this.#eventHandlers[eventName] = [];
     }
-    this.#eventHanders[eventName].push(eventHandler);
+    this.#eventHandlers[eventName].push(eventHandler);
   }
 
   unregister(eventName: string, eventHandler: EventHandler): void {
-    if (this.#eventHanders[eventName]) {
-      this.#eventHanders[eventName] = this.#eventHanders[eventName].filter(
+    if (this.#eventHandlers[eventName]) {
+      this.#eventHandlers[eventName] = this.#eventHandlers[eventName].filter(
         (handler) => !Object.is(eventHandler, handler)
       );
     }
   }
 
   unregisterAll(): void {
-    this.#eventHanders = {};
+    this.#eventHandlers = {};
   }
 }
