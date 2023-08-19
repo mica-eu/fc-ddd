@@ -45,7 +45,7 @@ describe('EventDispatcher', () => {
     expect(eventDispatcher.eventHandlers[EVENT_NAME][0]).toEqual(eventHandler);
   });
 
-  it('unregesters an event handler', () => {
+  it('unregister an event handler', () => {
     const eventDispatcher = new DefaultEventDispatcher();
     const eventHandler = new StubEventHandler();
     eventDispatcher.register(EVENT_NAME, eventHandler);
@@ -54,7 +54,7 @@ describe('EventDispatcher', () => {
     expect(eventDispatcher.eventHandlers[EVENT_NAME].length).toBe(0);
   });
 
-  it('unregesters all event handlers', () => {
+  it('unregister all event handlers', () => {
     const eventDispatcher = new DefaultEventDispatcher();
     const eventHandler = new StubEventHandler();
     eventDispatcher.register(EVENT_NAME, eventHandler);
