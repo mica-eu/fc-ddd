@@ -1,7 +1,7 @@
 import { UUID } from 'node:crypto';
 
 export interface IProduct {
-  get id(): UUID;
+  get id(): string;
   get name(): string;
   get price(): number;
   changeName(name: string): void;

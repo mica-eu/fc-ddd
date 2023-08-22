@@ -8,7 +8,7 @@ import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
 export class ProductModel extends Model {
   @PrimaryKey
   @Column
-  declare id: UUID;
+  declare id: string;
 
   @Column({ allowNull: false })
   declare name: string;

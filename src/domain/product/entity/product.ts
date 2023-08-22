@@ -2,18 +2,18 @@ import { UUID } from 'crypto';
 import { IProduct } from '../interface/product';
 
 export class Product implements IProduct {
-  #id: UUID;
+  #id: string;
   #name: string;
   #price: number;
 
-  constructor(id: UUID, name: string, price: number) {
+  constructor(id: string, name: string, price: number) {
     this.#id = id;
     this.#name = name;
     this.#price = price;
     this.validate();
   }
 
-  get id(): UUID {
+  get id(): string {
     return this.#id;
   }
 

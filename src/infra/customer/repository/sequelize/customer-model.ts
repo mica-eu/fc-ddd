@@ -8,7 +8,7 @@ import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
 export class CustomerModel extends Model {
   @PrimaryKey
   @Column
-  declare id: UUID;
+  declare id: string;
 
   @Column({ allowNull: false })
   declare active: boolean;
@@ -23,7 +23,7 @@ export class CustomerModel extends Model {
   declare number: string;
 
   @Column({ allowNull: false })
-  declare zipcode: string;
+  declare zipCode: string;
 
   @Column({ allowNull: false })
   declare city: string;

@@ -22,7 +22,7 @@ export class DatabaseProductRepository implements ProductRepository {
     );
   }
 
-  async find(id: UUID): Promise<Product> {
+  async find(id: string): Promise<Product> {
     const productModel = await ProductModel.findOne({ where: { id } });
     return new Product(
       productModel?.id as UUID,

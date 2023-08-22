@@ -13,7 +13,7 @@ export class DatabaseCustomerRepository implements CustomerRepository {
       rewardPoints: customer.rewardPoints,
       street: customer.address.street,
       city: customer.address.city,
-      zipcode: customer.address.zipcode,
+      zipCode: customer.address.zipCode,
       number: customer.address.number,
       complement: customer.address.complement,
     });
@@ -28,7 +28,7 @@ export class DatabaseCustomerRepository implements CustomerRepository {
         rewardPoints: customer.rewardPoints,
         street: customer.address.street,
         city: customer.address.city,
-        zipcode: customer.address.zipcode,
+        zipCode: customer.address.zipCode,
         number: customer.address.number,
         complement: customer.address.complement,
       },
@@ -36,7 +36,7 @@ export class DatabaseCustomerRepository implements CustomerRepository {
     );
   }
 
-  async find(id: UUID): Promise<Customer> {
+  async find(id: string): Promise<Customer> {
     let customerModel: CustomerModel;
     try {
       customerModel = await CustomerModel.findOne({
@@ -47,7 +47,7 @@ export class DatabaseCustomerRepository implements CustomerRepository {
       throw new Error('Customer not found!');
     }
     const address = new Address(
-      customerModel?.zipcode as string,
+      customerModel?.zipCode as string,
       customerModel?.city as string,
       customerModel?.street as string,
       customerModel?.number as string,
@@ -66,7 +66,7 @@ export class DatabaseCustomerRepository implements CustomerRepository {
     const foundCustomers = await CustomerModel.findAll();
     return foundCustomers.map((customerModel) => {
       const address = new Address(
-        customerModel?.zipcode as string,
+        customerModel?.zipCode as string,
         customerModel?.city as string,
         customerModel?.street as string,
         customerModel?.number as string,

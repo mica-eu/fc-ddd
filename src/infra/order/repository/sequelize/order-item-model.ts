@@ -10,18 +10,18 @@ import { OrderModel } from './order-model';
 export class OrderItemModel extends Model {
   @PrimaryKey
   @Column
-  declare id: UUID;
+  declare id: string;
 
   @ForeignKey(() => ProductModel)
   @Column({ allowNull: false })
-  declare productId: UUID;
+  declare productId: string;
 
   @BelongsTo(() => ProductModel)
   declare product: ProductModel;
 
   @ForeignKey(() => OrderModel)
   @Column({ allowNull: false })
-  declare orderId: UUID;
+  declare orderId: string;
 
   @Column({ allowNull: false })
   declare quantity: number;

@@ -1,14 +1,13 @@
-import { UUID } from 'crypto';
 import type { Address } from '../value-object/address';
 
 export class Customer {
   #active: boolean;
-  #id: UUID;
+  #id: string;
   #name: string;
   #address: Address;
   #rewardPoints = 0;
 
-  constructor(id: UUID, name: string, address: Address) {
+  constructor(id: string, name: string, address: Address) {
     this.#active = false;
     this.#id = id;
     this.#name = name;
@@ -16,7 +15,7 @@ export class Customer {
     this.validate();
   }
 
-  get id(): UUID {
+  get id(): string {
     return this.#id;
   }
 

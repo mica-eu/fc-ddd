@@ -18,11 +18,11 @@ import { OrderItemModel } from './order-item-model';
 export class OrderModel extends Model {
   @PrimaryKey
   @Column
-  declare id: UUID;
+  declare id: string;
 
   @ForeignKey(() => CustomerModel)
   @Column({ allowNull: false })
-  declare customerId: UUID;
+  declare customerId: string;
 
   @Column({ allowNull: false })
   declare total: number;

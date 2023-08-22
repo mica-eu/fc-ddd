@@ -7,7 +7,7 @@ describe('CustomerFactory', () => {
       city: 'Cidade',
       number: '123',
       complement: '',
-      zipcode: '55555-55',
+      zipCode: '55555-55',
     });
     expect(customer.id).toBeDefined();
     expect(customer.name).toBe('John');
@@ -16,7 +16,7 @@ describe('CustomerFactory', () => {
       city: 'Cidade',
       number: '123',
       complement: '',
-      zipcode: '55555-55',
+      zipCode: '55555-55',
     });
   });
 });

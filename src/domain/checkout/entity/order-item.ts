@@ -2,8 +2,8 @@ import { UUID } from 'crypto';
 
 export class OrderItem {
   constructor(
-    readonly id: UUID,
-    readonly productId: UUID,
+    readonly id: string,
+    readonly productId: string,
     readonly name: string,
     readonly price: number,
     readonly quantity: number

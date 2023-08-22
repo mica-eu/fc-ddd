@@ -2,21 +2,21 @@ import { UUID } from 'crypto';
 import type { OrderItem } from './order-item';
 
 export class Order {
-  #id: UUID;
-  #customerId: UUID;
+  #id: string;
+  #customerId: string;
   #items: OrderItem[];
-  constructor(id: UUID, customerId: UUID, items: OrderItem[]) {
+  constructor(id: string, customerId: string, items: OrderItem[]) {
     this.#id = id;
     this.#customerId = customerId;
     this.#items = items;
     this.validate();
   }
 
-  get id(): UUID {
+  get id(): string {
     return this.#id;
   }
 
-  get customerId(): UUID {
+  get customerId(): string {
     return this.#customerId;
   }
 
@@ -28,7 +28,7 @@ export class Order {
     this.#items.push(item);
   }
 
-  removeItem(id: UUID): void {
+  removeItem(id: string): void {
     this.#items = this.items.filter((item) => item.id !== id);
   }
 
