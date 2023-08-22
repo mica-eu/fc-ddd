@@ -1,4 +1,3 @@
-import { UUID } from 'node:crypto';
 import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
 
 @Table({

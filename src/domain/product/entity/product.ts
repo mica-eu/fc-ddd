@@ -1,4 +1,3 @@
-import { UUID } from 'crypto';
 import { IProduct } from '../interface/product';
 
 export class Product implements IProduct {

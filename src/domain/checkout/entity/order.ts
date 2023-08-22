@@ -1,4 +1,3 @@
-import { UUID } from 'crypto';
 import type { OrderItem } from './order-item';
 
 export class Order {

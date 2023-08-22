@@ -1,5 +1,3 @@
-import { UUID } from 'crypto';
-
 import { Op } from 'sequelize';
 import { OrderRepository } from '../../../../domain/checkout/repository/order-repository';
 import { Order } from '../../../../domain/checkout/entity/order';
@@ -70,8 +68,8 @@ export class DatabaseOrderRepository implements OrderRepository {
       include: [OrderItemModel],
     });
     return new Order(
-      orderModel?.id as UUID,
-      orderModel?.customerId as UUID,
+      orderModel?.id as string,
+      orderModel?.customerId as string,
       orderModel?.items.map(
         (item) => new OrderItem(item.id, item.productId, item.name, item.price, item.quantity)
       ) as OrderItem[]
@@ -85,8 +83,8 @@ export class DatabaseOrderRepository implements OrderRepository {
     return orderModels.map(
       (order) =>
         new Order(
-          order?.id as UUID,
-          order?.customerId as UUID,
+          order?.id as string,
+          order?.customerId as string,
           order?.items.map(
             (item) => new OrderItem(item.id, item.productId, item.name, item.price, item.quantity)
           ) as OrderItem[]

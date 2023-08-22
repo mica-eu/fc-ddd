@@ -1,4 +1,3 @@
-import { UUID } from 'crypto';
 import { ProductRepository } from '../../../../domain/product/repository/product-repository';
 import { Product } from '../../../../domain/product/entity/product';
 import { ProductModel } from './product-model';
@@ -25,7 +24,7 @@ export class DatabaseProductRepository implements ProductRepository {
   async find(id: string): Promise<Product> {
     const productModel = await ProductModel.findOne({ where: { id } });
     return new Product(
-      productModel?.id as UUID,
+      productModel?.id as string,
       productModel?.name as string,
       productModel?.price as number
     );

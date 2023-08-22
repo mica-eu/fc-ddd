@@ -1,5 +1,3 @@
-import { UUID } from 'node:crypto';
-
 export interface IProduct {
   get id(): string;
   get name(): string;

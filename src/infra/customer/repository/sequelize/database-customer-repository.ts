@@ -1,4 +1,3 @@
-import { UUID } from 'crypto';
 import { CustomerRepository } from '../../../../domain/customer/repository/customer-repository';
 import { Customer } from '../../../../domain/customer/entity/customer';
 import { CustomerModel } from './customer-model';
@@ -53,11 +52,7 @@ export class DatabaseCustomerRepository implements CustomerRepository {
       customerModel?.number as string,
       customerModel?.complement as string
     );
-    const customer = new Customer(
-      customerModel?.id as UUID,
-      customerModel?.name as string,
-      address
-    );
+    const customer = new Customer(customerModel?.id, customerModel?.name as string, address);
     customer.addRewardPoints(customerModel?.rewardPoints as number);
     return customer;
   }
@@ -72,11 +67,7 @@ export class DatabaseCustomerRepository implements CustomerRepository {
         customerModel?.number as string,
         customerModel?.complement as string
       );
-      const customer = new Customer(
-        customerModel?.id as UUID,
-        customerModel?.name as string,
-        address
-      );
+      const customer = new Customer(customerModel?.id, customerModel?.name as string, address);
       customer.addRewardPoints(customerModel?.rewardPoints as number);
       return customer;
     });
