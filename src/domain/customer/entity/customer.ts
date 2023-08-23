@@ -63,4 +63,9 @@ export class Customer {
     this.#name = name;
     this.validate();
   }
+
+  changeAddress(address: Address): void {
+    this.#address = address;
+    this.validate();
+  }
 }
