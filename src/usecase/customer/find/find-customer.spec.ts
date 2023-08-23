@@ -3,35 +3,50 @@ import { randomUUID } from 'crypto';
 import { Address } from '../../../domain/customer/value-object/address';
 import { FindCustomerUseCase } from './find-customer';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
+import { container } from 'tsyringe';
 
-const makeCustomerRepositoryStub = (): CustomerRepository => ({
-  find: jest
-    .fn()
-    .mockResolvedValue(
-      new Customer(randomUUID(), 'John Doe', new Address('Street', 'City', 'Number', 'ZipCode', ''))
-    ),
-  create: jest.fn(),
-  update: jest.fn(),
-  findAll: jest.fn(),
-});
+class CustomerRepositoryStub implements CustomerRepository {
+  async find(): Promise<Customer> {
+    return new Customer(
+      'valid-uuid',
+      'John Doe',
+      new Address('Street', 'City', 'Number', 'ZipCode', '')
+    );
+  }
+
+  async create(): Promise<void> {
+    return;
+  }
+
+  async update(): Promise<void> {
+    return;
+  }
+
+  async findAll(): Promise<Customer[]> {
+    return [];
+  }
+}
+
+function makeSUT(): { sut: FindCustomerUseCase; repositoryStub: CustomerRepositoryStub } {
+  const sut = container
+    .register<CustomerRepository>('CustomerRepository', CustomerRepositoryStub)
+    .resolve(FindCustomerUseCase);
+  return { sut, repositoryStub: new CustomerRepositoryStub() };
+}
 
 describe('FindCustomerUseCase', () => {
   it('throws an error if customer not found', async () => {
-    const customerRepositoryStub = makeCustomerRepositoryStub();
-    customerRepositoryStub.find = jest.fn().mockImplementationOnce(() => {
+    jest.spyOn(CustomerRepositoryStub.prototype, 'find').mockImplementationOnce(() => {
       throw new Error('Customer not found');
     });
-    const findCustomerUseCase = new FindCustomerUseCase(customerRepositoryStub);
-    expect(() => findCustomerUseCase.execute({ id: randomUUID() })).rejects.toThrow(
-      'Customer not found'
-    );
+    const { sut } = makeSUT();
+    expect(() => sut.execute({ id: randomUUID() })).rejects.toThrow('Customer not found');
   });
 
   it('finds a customer', async () => {
-    const customerRepositoryStub = makeCustomerRepositoryStub();
-    const customer = await customerRepositoryStub.find('');
-    const findCustomerUseCase = new FindCustomerUseCase(customerRepositoryStub);
-    const customerFound = await findCustomerUseCase.execute({ id: customer.id });
+    const { sut, repositoryStub } = makeSUT();
+    const customer = await repositoryStub.find();
+    const customerFound = await sut.execute({ id: customer.id });
     expect(customerFound).toEqual({
       id: customer.id,
       name: customer.name,

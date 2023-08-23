@@ -1,9 +1,14 @@
+import { inject, injectable } from 'tsyringe';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 import { Address } from '../../../domain/customer/value-object/address';
 import { InputUpdateCustomerDto, OutputUpdateCustomerDto } from './update-customer-dto';
 
+@injectable()
 export class UpdateCustomerUseCase {
-  constructor(private readonly customerRepository: CustomerRepository) {}
+  constructor(
+    @inject('CustomerRepository')
+    private readonly customerRepository: CustomerRepository
+  ) {}
 
   async execute(input: InputUpdateCustomerDto): Promise<OutputUpdateCustomerDto> {
     const customer = await this.customerRepository.find(input.id);

@@ -3,6 +3,7 @@ import { Customer } from '../../../domain/customer/entity/customer';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 import { Address } from '../../../domain/customer/value-object/address';
 import { UpdateCustomerUseCase } from './update-customer';
+import { container } from 'tsyringe';
 
 jest.mock('crypto', () => ({
   randomUUID: jest.fn().mockReturnValue('uuid'),
@@ -11,17 +12,33 @@ jest.mock('crypto', () => ({
 const makeCustomer = (): Customer =>
   new Customer(randomUUID(), 'John Doe', new Address('Street', 'City', 'Number', 'ZipCode', ''));
 
-const makeCustomerRepositoryStub = (): CustomerRepository => ({
-  find: jest.fn().mockResolvedValue(makeCustomer()),
-  create: jest.fn(),
-  update: jest.fn(),
-  findAll: jest.fn(),
-});
+class CustomerRepositoryStub implements CustomerRepository {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async find(id: string): Promise<Customer> {
+    return makeCustomer();
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async create(customer: Customer): Promise<void> {
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async update(customer: Customer): Promise<void> {
+    return;
+  }
+  async findAll(): Promise<Customer[]> {
+    return [];
+  }
+}
+
+function makeSUT(): UpdateCustomerUseCase {
+  return container
+    .register<CustomerRepository>('CustomerRepository', CustomerRepositoryStub)
+    .resolve(UpdateCustomerUseCase);
+}
 
 describe('UpdateCustomerUseCase', () => {
   it('should update a customer', async () => {
-    const customerRepositoryStub = makeCustomerRepositoryStub();
-    const sut = new UpdateCustomerUseCase(customerRepositoryStub);
+    const sut = makeSUT();
     const inputDto = {
       id: 'uuid',
       name: 'John Doe',

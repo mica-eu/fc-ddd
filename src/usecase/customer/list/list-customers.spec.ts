@@ -3,6 +3,7 @@ import { Customer } from '../../../domain/customer/entity/customer';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 import { Address } from '../../../domain/customer/value-object/address';
 import { ListCustomerUseCase } from './list-customers';
+import { container } from 'tsyringe';
 
 jest.mock('crypto', () => ({
   randomUUID: jest.fn().mockReturnValue('uuid'),
@@ -29,11 +30,26 @@ const makeCustomerRepositoryStub = (mock: Customer[]): CustomerRepository => ({
   findAll: jest.fn().mockResolvedValue(mock),
 });
 
+interface SutTypes {
+  sut: ListCustomerUseCase;
+  repositoryStub: CustomerRepository;
+  customersMock: Customer[];
+}
+
+function makeSUT(): SutTypes {
+  const customersMock = makeCustomers();
+  const repositoryStub = makeCustomerRepositoryStub(customersMock);
+  const sut = container
+    .register<CustomerRepository>('CustomerRepository', {
+      useValue: repositoryStub,
+    })
+    .resolve(ListCustomerUseCase);
+  return { sut, repositoryStub, customersMock };
+}
+
 describe('ListCustomerUseCase', () => {
   it('should list customers', async () => {
-    const customersMock = makeCustomers();
-    const customerRepositoryStub = makeCustomerRepositoryStub(customersMock);
-    const sut = new ListCustomerUseCase(customerRepositoryStub);
+    const { sut, customersMock } = makeSUT();
     const inputDto = {};
     const outputDto = await sut.execute(inputDto);
     expect(outputDto).toEqual({

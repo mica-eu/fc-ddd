@@ -1,10 +1,13 @@
-import { DatabaseCustomerRepository } from '../../../infra/customer/repository/sequelize/database-customer-repository';
+import { inject, injectable } from 'tsyringe';
 import { InputFindCustomerDto, OutputFindCustomerDto } from './find-customer-dto';
+import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 
+@injectable()
 export class FindCustomerUseCase {
-  constructor(private readonly customerRepository: DatabaseCustomerRepository) {
-    this.customerRepository = customerRepository;
-  }
+  constructor(
+    @inject('CustomerRepository')
+    private readonly customerRepository: CustomerRepository
+  ) {}
 
   async execute(inputDto: InputFindCustomerDto): Promise<OutputFindCustomerDto> {
     const customer = await this.customerRepository.find(inputDto.id);

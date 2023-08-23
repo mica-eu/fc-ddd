@@ -1,8 +1,13 @@
+import { inject, injectable } from 'tsyringe';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 import { InputListCustomersDto, OutputListCustomersDto } from './list-customers-dto';
 
+@injectable()
 export class ListCustomerUseCase {
-  constructor(private readonly customerRepository: CustomerRepository) {}
+  constructor(
+    @inject('CustomerRepository')
+    private readonly customerRepository: CustomerRepository
+  ) {}
 
   async execute(inputDto?: InputListCustomersDto): Promise<OutputListCustomersDto> {
     const customers = await this.customerRepository.findAll(inputDto?.limit, inputDto?.offset);

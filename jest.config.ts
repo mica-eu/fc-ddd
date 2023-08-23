@@ -9,6 +9,7 @@ const config: Config = {
     '^.+\\.ts': 'ts-jest',
   },
   testPathIgnorePatterns: ['dist'],
+  setupFiles: ['./jest.setup.ts'],
 };
 
 export default config;

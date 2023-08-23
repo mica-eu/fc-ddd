@@ -3,9 +3,14 @@ import { Customer } from '../../../domain/customer/entity/customer';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 import { InputCreateCustomerDto, OutputCreateCustomerDto } from './create-customer-dto';
 import { Address } from '../../../domain/customer/value-object/address';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class CreateCustomerUseCase {
-  constructor(private readonly customerRepository: CustomerRepository) {
+  constructor(
+    @inject('CustomerRepository')
+    private readonly customerRepository: CustomerRepository
+  ) {
     this.customerRepository = customerRepository;
   }
   async execute(inputDto: InputCreateCustomerDto): Promise<OutputCreateCustomerDto> {

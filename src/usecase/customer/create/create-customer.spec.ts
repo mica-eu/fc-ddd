@@ -1,47 +1,62 @@
-import { randomUUID } from 'crypto';
 import { Customer } from '../../../domain/customer/entity/customer';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 import { Address } from '../../../domain/customer/value-object/address';
 import { CreateCustomerUseCase } from './create-customer';
+import { container } from 'tsyringe';
 
-jest.mock('crypto', () => ({
-  randomUUID: jest.fn().mockReturnValue('uuid'),
-}));
+const customerMock = new Customer(
+  'valid-uuid',
+  'John Doe',
+  new Address('Street', 'City', 'Number', 'ZipCode', '')
+);
 
-const makeCustomer = (): Customer =>
-  new Customer(randomUUID(), 'John Doe', new Address('Street', 'City', 'Number', 'ZipCode', ''));
+class CustomerRepositoryStub implements CustomerRepository {
+  async find(): Promise<Customer> {
+    return customerMock;
+  }
 
-const makeCustomerRepositoryStub = (): CustomerRepository => ({
-  find: jest.fn().mockResolvedValue(makeCustomer()),
-  create: jest.fn(),
-  update: jest.fn(),
-  findAll: jest.fn(),
-});
+  async create(): Promise<void> {
+    return;
+  }
+
+  async update(): Promise<void> {
+    return;
+  }
+
+  async findAll(): Promise<Customer[]> {
+    return [];
+  }
+}
+
+function makeSUT(): CreateCustomerUseCase {
+  const sut = container
+    .register<CustomerRepository>('CustomerRepository', CustomerRepositoryStub)
+    .resolve(CreateCustomerUseCase);
+  return sut;
+}
 
 describe('CreateCustomerUseCase', () => {
   it('creates a customer', async () => {
-    const customer = makeCustomer();
-    const customerRepositoryStub = makeCustomerRepositoryStub();
-    const createCustomerUseCase = new CreateCustomerUseCase(customerRepositoryStub);
-    const customerDto = await createCustomerUseCase.execute({
-      name: customer.name,
+    const sut = makeSUT();
+    const outputDto = await sut.execute({
+      name: customerMock.name,
       address: {
-        street: customer.address.street,
-        city: customer.address.city,
-        number: customer.address.number,
-        zipCode: customer.address.zipCode,
-        complement: customer.address.complement,
+        street: customerMock.address.street,
+        city: customerMock.address.city,
+        number: customerMock.address.number,
+        zipCode: customerMock.address.zipCode,
+        complement: customerMock.address.complement,
       },
     });
-    expect(customerDto).toEqual({
-      id: customer.id,
-      name: customer.name,
+    expect(outputDto).toEqual({
+      id: customerMock.id,
+      name: customerMock.name,
       address: {
-        street: customer.address.street,
-        city: customer.address.city,
-        number: customer.address.number,
-        zipCode: customer.address.zipCode,
-        complement: customer.address.complement,
+        street: customerMock.address.street,
+        city: customerMock.address.city,
+        number: customerMock.address.number,
+        zipCode: customerMock.address.zipCode,
+        complement: customerMock.address.complement,
       },
     });
   });
