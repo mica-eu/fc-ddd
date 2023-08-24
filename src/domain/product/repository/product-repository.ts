@@ -5,5 +5,5 @@ export interface ProductRepository extends Repository<Product> {
   create(product: Product): Promise<void>;
   update(product: Product): Promise<void>;
   find(id: string): Promise<Product>;
-  findAll(): Promise<Product[]>;
+  findAll(limit?: number, offset?: number): Promise<Product[]>;
 }
