@@ -1,6 +1,4 @@
-import { IProduct } from '../interface/product';
-
-export class Product implements IProduct {
+export class Product {
   #id: string;
   #name: string;
   #price: number;
