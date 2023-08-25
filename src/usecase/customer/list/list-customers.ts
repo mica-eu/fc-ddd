@@ -3,7 +3,7 @@ import { CustomerRepository } from '../../../domain/customer/repository/customer
 import { InputListCustomersDto, OutputListCustomersDto } from './list-customers-dto';
 
 @injectable()
-export class ListCustomerUseCase {
+export class ListCustomersUseCase {
   constructor(
     @inject('CustomerRepository')
     private readonly customerRepository: CustomerRepository

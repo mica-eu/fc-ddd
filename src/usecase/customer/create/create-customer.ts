@@ -15,10 +15,10 @@ export class CreateCustomerUseCase {
   }
   async execute(inputDto: InputCreateCustomerDto): Promise<OutputCreateCustomerDto> {
     const address = new Address(
-      inputDto.address.street,
-      inputDto.address.city,
-      inputDto.address.number,
       inputDto.address.zipCode,
+      inputDto.address.city,
+      inputDto.address.street,
+      inputDto.address.number,
       inputDto.address.complement
     );
     const customer = new Customer(randomUUID(), inputDto.name, address);

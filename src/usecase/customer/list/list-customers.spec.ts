@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { Customer } from '../../../domain/customer/entity/customer';
 import { CustomerRepository } from '../../../domain/customer/repository/customer-repository';
 import { Address } from '../../../domain/customer/value-object/address';
-import { ListCustomerUseCase } from './list-customers';
+import { ListCustomersUseCase } from './list-customers';
 import { container } from 'tsyringe';
 
 jest.mock('crypto', () => ({
@@ -31,7 +31,7 @@ const makeCustomerRepositoryStub = (mock: Customer[]): CustomerRepository => ({
 });
 
 interface SutTypes {
-  sut: ListCustomerUseCase;
+  sut: ListCustomersUseCase;
   repositoryStub: CustomerRepository;
   customersMock: Customer[];
 }
@@ -43,7 +43,7 @@ function makeSUT(): SutTypes {
     .register<CustomerRepository>('CustomerRepository', {
       useValue: repositoryStub,
     })
-    .resolve(ListCustomerUseCase);
+    .resolve(ListCustomersUseCase);
   return { sut, repositoryStub, customersMock };
 }
 
