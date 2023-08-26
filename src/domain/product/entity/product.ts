@@ -1,17 +1,14 @@
-export class Product {
-  #id: string;
+import { Entity } from '../../@shared/entity/entity';
+
+export class Product extends Entity {
   #name: string;
   #price: number;
 
-  constructor(id: string, name: string, price: number) {
-    this.#id = id;
+  constructor(readonly id: string, name: string, price: number) {
+    super();
     this.#name = name;
     this.#price = price;
     this.validate();
-  }
-
-  get id(): string {
-    return this.#id;
   }
 
   get name(): string {
@@ -33,17 +30,20 @@ export class Product {
   }
 
   private validate(): void {
-    if (!this.#id) {
-      throw new Error('Missing required param <id>');
+    if (!this.id) {
+      this.notification.addError('product', 'id is required');
     }
     if (!this.#name.trim()) {
-      throw new Error('Missing required param <name>');
+      this.notification.addError('product', 'name is required');
     }
     if (this.#price === undefined || this.#price === null) {
-      throw new Error('Missing required param <price>');
+      this.notification.addError('product', 'price is required');
     }
     if (this.#price < 0) {
-      throw new Error('<price> param must be greater than 0');
+      this.notification.addError('product', 'price must be greater than 0');
+    }
+    if (this.notification.hasErrors()) {
+      throw new Error(this.notification.getMessage());
     }
   }
 }
