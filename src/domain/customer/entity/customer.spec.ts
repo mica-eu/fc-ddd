@@ -7,20 +7,20 @@ describe('Customer', () => {
 
   it('throws error when id is empty', () => {
     // @ts-expect-error ...
-    expect(() => new Customer(null, 'John', address)).toThrowError('Missing required prop <id>');
+    expect(() => new Customer(null, 'John', address)).toThrowError('customer: id is required');
   });
 
   it('throws error when name is empty', () => {
     // @ts-expect-error ...
     expect(() => new Customer(randomUUID(), null, address)).toThrowError(
-      'Missing required prop <name>'
+      'customer: name is required'
     );
   });
 
   it('throws error when address is empty', () => {
     // @ts-expect-error ...
     const customer = new Customer(randomUUID(), 'John');
-    expect(() => customer.activate()).toThrowError('Missing required prop <address>');
+    expect(() => customer.activate()).toThrowError('customer: address is required');
   });
 
   it('changes customer name', () => {

@@ -1,22 +1,21 @@
+import { Entity } from '../../@shared/entity/entity';
 import type { Address } from '../value-object/address';
 
-export class Customer {
+export class Customer extends Entity {
   #active: boolean;
-  #id: string;
   #name: string;
   #address: Address;
   #rewardPoints = 0;
 
-  constructor(id: string, name: string, address: Address) {
+  constructor(readonly id: string, name: string, address: Address) {
+    super();
     this.#active = false;
-    this.#id = id;
     this.#name = name;
     this.#address = address;
     this.validate();
-  }
-
-  get id(): string {
-    return this.#id;
+    if (this.notification.hasErrors()) {
+      throw new Error(this.notification.getMessage());
+    }
   }
 
   get name(): string {
@@ -36,17 +35,17 @@ export class Customer {
   }
 
   validate() {
-    if (!this.#id) {
-      throw new Error('Missing required prop <id>');
+    if (!this.id) {
+      this.notification.addError('customer', 'id is required');
     }
     if (!this.#name) {
-      throw new Error('Missing required prop <name>');
+      this.notification.addError('customer', 'name is required');
     }
   }
 
   activate() {
     if (!this.#address) {
-      throw new Error('Missing required prop <address>');
+      throw new Error('customer: address is required');
     }
     this.#active = true;
   }
