@@ -35,6 +35,7 @@
     "express": "^4.18.2",
     "sequelize": "^6.32.1",
     "sequelize-typescript": "^2.1.5",
-    "tsyringe": "^4.8.0"
+    "tsyringe": "^4.8.0",
+    "yup": "^1.2.0"
   }
 }

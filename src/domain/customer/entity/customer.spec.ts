@@ -7,13 +7,15 @@ describe('Customer', () => {
 
   it('throws error when id is empty', () => {
     // @ts-expect-error ...
-    expect(() => new Customer(null, 'John', address)).toThrowError('customer: id is required');
+    expect(() => new Customer(null, 'John', address)).toThrowError(
+      'customer: id is a required field'
+    );
   });
 
   it('throws error when name is empty', () => {
     // @ts-expect-error ...
     expect(() => new Customer(randomUUID(), null, address)).toThrowError(
-      'customer: name is required'
+      'customer: name is a required field'
     );
   });
 
