@@ -70,4 +70,24 @@ describe('/customers', () => {
       ],
     });
   });
+
+  it('returns a customer list in XML format', async () => {
+    const { body } = await request(app)
+      .post('/customers')
+      .send({
+        name: 'John Doe',
+        address: {
+          street: 'Main Street',
+          number: 10,
+          city: 'Sao Paulo',
+          zipCode: '12345678',
+        },
+      });
+    const response = await request(app).get('/customers').set('Accept', 'application/xml');
+    expect(response.status).toBe(200);
+    expect(response.headers['content-type']).toEqual('application/xml; charset=utf-8');
+    expect(response.text).toEqual(
+      `<?xml version="1.0" encoding="UTF-8"?>\n<customers>\n  <customer>\n    <id>${body.id}</id>\n    <name>John Doe</name>\n    <address>\n      <street>Main Street</street>\n      <number>10</number>\n      <city>Sao Paulo</city>\n      <zipCode>12345678</zipCode>\n    </address>\n  </customer>\n</customers>`
+    );
+  });
 });
