@@ -83,11 +83,11 @@ export class DatabaseOrderRepository implements OrderRepository {
     return orderModels.map(
       (order) =>
         new Order(
-          order?.id as string,
-          order?.customerId as string,
+          order?.id,
+          order?.customerId,
           order?.items.map(
             (item) => new OrderItem(item.id, item.productId, item.name, item.price, item.quantity)
-          ) as OrderItem[]
+          )
         )
     );
   }

@@ -46,14 +46,14 @@ export class DatabaseCustomerRepository implements CustomerRepository {
       throw new Error('Customer not found!');
     }
     const address = new Address(
-      customerModel?.zipCode as string,
-      customerModel?.city as string,
-      customerModel?.street as string,
-      customerModel?.number as string,
-      customerModel?.complement as string
+      customerModel?.zipCode,
+      customerModel?.city,
+      customerModel?.street,
+      customerModel?.number,
+      customerModel?.complement
     );
-    const customer = new Customer(customerModel?.id, customerModel?.name as string, address);
-    customer.addRewardPoints(customerModel?.rewardPoints as number);
+    const customer = new Customer(customerModel?.id, customerModel?.name, address);
+    customer.addRewardPoints(customerModel?.rewardPoints);
     return customer;
   }
 
@@ -61,14 +61,14 @@ export class DatabaseCustomerRepository implements CustomerRepository {
     const foundCustomers = await CustomerModel.findAll();
     return foundCustomers.map((customerModel) => {
       const address = new Address(
-        customerModel?.zipCode as string,
-        customerModel?.city as string,
-        customerModel?.street as string,
-        customerModel?.number as string,
-        customerModel?.complement as string
+        customerModel?.zipCode,
+        customerModel?.city,
+        customerModel?.street,
+        customerModel?.number,
+        customerModel?.complement
       );
-      const customer = new Customer(customerModel?.id, customerModel?.name as string, address);
-      customer.addRewardPoints(customerModel?.rewardPoints as number);
+      const customer = new Customer(customerModel?.id, customerModel?.name, address);
+      customer.addRewardPoints(customerModel?.rewardPoints);
       return customer;
     });
   }
